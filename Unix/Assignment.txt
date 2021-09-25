@@ -1,0 +1,214 @@
+Exercise-1
+
+1.Create folder 'Test' in your home directory
+mkdir Test
+
+
+2.Create below files
+  - employeelist
+  - skillset
+touch employeelist skillset
+
+
+3.Create folder Test2 in home directory
+mkdir Test2
+
+- create symbolink and hard link for skillset file 
+ ln skillset hardlink      ln -s skillset symlink
+
+- delete skillset file and check if hardlink and symbolic link file exists
+ rm skillset
+
+- explain the difference b/n symbolic and hard links
+Symbolic link is an actual link to the original file.
+Hard link is a mirror copy of original file.
+
+ 
+4.Provide read and write permission to 'user2' group
+sudo chgrp user2 skillset
+chmod g+rw skillset
+
+test if user2 group users can access the file
+yes
+
+
+5.Revoke write permission from user2 group and test the access again
+chmod g-w skillset
+
+
+6.Grant write permission for others and test it 
+chmod o+w skillset
+
+
+7.Revoke write permission for others and test again
+chmod o-w skillset
+
+
+8.. Change the group of employeelist file to 'user3'
+sudo chgrp user3 employeelist
+
+test if user3 group have access
+yes
+
+
+9.Change ownership of the file to user5 and test
+sudo chown user5 employeelist
+
+
+10.. check how many employees are there  (hint: use wc command)
+wc -l employeelist
+
+
+
+Exercise-2
+
+1.Create file “File1”
+touch File1
+
+
+2.Append 2 more lines to the same file
+cat file1
+cat file1 >>File1
+
+
+3.Create File2 with few lines
+cat >>File2
+
+
+4.Display the contents of both File1 and File2
+cat File1 File2
+
+
+5.Concatenate both File1 & 2 and Send the above output to File3
+cat File1 File2 &>File3
+
+
+6.Read File1,File2,File3… File5 . Observe the output
+cat File1 File2 File3 File4 File5
+It will display the contents of the files which are present and also error messages for the files which are not present.
+
+
+7.Redirect the errors of the above command to “errorlog”
+cat File1 File2 File3 File4 File5 2>/dev/null
+
+
+8.Concatenate name File1 to 5 and store it in File 10. if any errors, log them in the same file 
+cat File1 File2 File3 File4 File5 &>File10
+
+
+9.Copy File1 to File6. Add the errors to “errorlog”
+cp File1 File6 2>/dev/null
+
+
+
+Exercise-3
+
+1.The 10th to 25th  lines in a file
+head -25 f2 | tail -16
+
+
+2.List only 10th line in a file
+head -10 f2 |tail -1
+
+
+3.List only the recently modified file in the current directory
+find . -mtime -24 -print
+
+
+4.List only the smallest file in the current directory
+ls -lSr | head -2
+
+
+
+Exercise-4
+
+1.Lines containing A
+ls|grep "A"
+
+
+2.lines containing The at the beginning
+ls|grep ^The
+
+
+3.lines  ending with  .	
+ls|grep [.]$
+
+
+4.lines with a,b or c as the second letter
+ls|grep ^.[a-c]
+
+
+5.lines which contain def , deef or deeeef 
+ls|grep ^*de*f$
+
+
+6.lines not having numbers at the beginning
+ls |grep -v ^[0-9]
+
+
+7.empty lines
+grep ^$ f3
+
+
+8.list the password file details of user1 - user10
+grep ^user[0-9] /etc/passwd | head -10
+
+
+9.list only directories
+ls -l|grep ^d
+
+
+
+Exercise-5
+
+1.Create a file which contains long listing of the files in root directory
+ls -li ../../ >sorfile
+
+
+2.Sort the file based on the filename descending order (last field)
+sort -rk 10 sorfile
+
+
+3.Sort the file based only on the inode count
+sort -nk 1 sorfile
+
+
+4.Sort the file based on the user name and group name in reverse order
+sort -k 4,5 sorfile
+
+
+5.Sort the file based on the file size and store the output in a file called sorted file
+sort -nk 6 sorfile >sortedfile
+
+
+
+Exercise-6
+
+1.Run a sleep command of a large file at the background
+sleep 100 &
+
+
+2.Run a sort command of a large file at the background using nohup
+nohup sleep 10 &
+
+
+3.Check what happens when you log off for the above
+When we execute the sleep command and logoff then the process is terminated.
+when we execute the nohup command and logoff then the process is executed and will be there in PID.
+
+
+4.Write a command that sleeps for 5 seconds and then prints hello
+sleep 5 & echo "Hello"
+
+
+
+Exercise-7
+
+1.Write the command to write the processes that will be running after 10 days into a file ‘processfile’
+at now +10 days   
+ps -el >processfile
+
+
+2.Write the command to send birthday wishes to your friend, whose birthday is tomorrow
+at 12:00 am Sep 26 
+echo "Happy Birthday" >f12
